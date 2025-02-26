@@ -1,100 +1,128 @@
 <!doctype html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-</head>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen gap-5">
 
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
-    <?php
+  <?php
 
     $nama = "";
-    $UTS = "";
-    $UAS = "";
-    $Tugas = "";
+    $tugas = "";
+    $uts = "";
+    $uas = "";
+    $nilai = "";
+    $hasil = "";
+    $predik = "";
 
-    if (isset($_POST['hitung'])) {
-        $nama = $_POST['nama'];
-        $UTS = $_POST['UTS'];
-        $UAS = $_POST['UAS'];
-        $Tugas = $_POST['Tugas'];
+  if (isset($_POST["nilai"])) {
+    $nama = $_POST["nama"];
+    $tugas = $_POST["tugas"];
+    $uts = $_POST["uts"];
+    $uas = $_POST["uas"];
+    $nilai = $_POST["nilai"];
 
+    $hasil = ((30/100)*$tugas)+((30/100)*$uts)+((40/100)*$uas);
 
-        $nilai = ((30 / 100) * $UTS) + ((40 / 100) * $UAS) + ((30 / 100) * $Tugas);
-
-        if ($nilai >= 85) {
-            $status = "A";
-        } elseif ($nilai >= 70) {
-            $status = "B";
-        } elseif ($nilai >= 60) {
-            $status = "C";
-        } elseif ($nilai >= 50) {
-            $status = "D";
-        } else {
-            $status = "E";
-        }
+    switch ($nilai) {
+        case $hasil >= 85:
+            $predik = "A";
+            break;
+        
+        case $hasil >= 70:
+            $predik = "B";
+            break;
+        
+        case $hasil >= 60:
+            $predik = "C";
+            break;
+        
+        case $hasil >= 50:
+            $predik = "D";
+            break;
+        
+        default:
+            $predik = "E";
+            break;
     }
-    ?>
+    // panjul anjing
+    }
+  ?>
 
-    <div class="container flex justify-center items-center mx-auto">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-100">
-            <h2 class="text-2xl font-semibold mb-4 text-center">
-                Form Input Nilai Siswa
+    <div class="sejajar grid grid-cols-2">
+
+        <div class="bg-white p-8 rounded-lg shaadow-lg w-96">
+
+            <h2 class="text-2xl font-semibold text-center mb-5">
+                Form Input Nilai Siswa/i
             </h2>
 
             <form action="" method="POST">
-                <label for="">Nama Siswa</label>
-                <input type="text" name="nama" class="w-full p-3 mb-4 border border-gray-300 rounded-md " autocomplete="off">
+            <label for="">Nama</label>
+            <input type="text" name="nama"
+            class="w-full p-3 mb-4 border border-gray-300 rounded-md"
+            autocomplete=off>
 
-                <label for="">Nilai Tugas</label>
-                <input type="text" name="Tugas" class="w-full p-3 mb-4 border border-gray-300 rounded-md" autocomplete="off">
+            <form action="" method="POST">
+            <label for="">Nilai Tugas</label>
+            <input type="number" name="tugas"
+            class="w-full p-3 mb-4 border border-gray-300 rounded-md"
+            autocomplete=off>
 
-                <label for="">Nilai UTS</label>
-                <input type="text" name="UTS" class="w-full p-3 mb-4 border border-gray-300 rounded-md" autocomplete="off">
+            <form action="" method="POST">
+            <label for="">Nilai UAS</label>
+            <input type="nummber" name="uas"
+            class="w-full p-3 mb-4 border border-gray-300 rounded-md"
+            autocomplete=off>
 
-                <label for="">Nilai UAS</label>
-                <input type="text" name="UAS" class="w-full p-3 mb-4 border border-gray-300 rounded-md" autocomplete="off">
+            <form action="" method="POST">
+            <label for="">Nilai UTS</label>
+            <input type="number" name="uts"
+            class="w-full p-3 mb-4 border border-gray-300 rounded-md"
+            autocomplete=off>
 
+            <input type="submit" name="nilai"
+            class="w-full p-3 mb-4 bg-violet-700 hover:bg-violet-800 text-white rounded-md text-center"
+            value="Hitung Nilai">
+            </form>
 
-                <input type="submit" value="hitung Hasil" name="hitung" class="w-full p-3 bg-purple-500 text-white rounded-md hover:bg-purple-700 cursor-pointer mb-4">
 
         </div>
-        <div class="container">
-            <div class="bg-white p-8 items-center justify-center rounded-lg shadow-lg w-100 mx-8 mb-5 w-200">
-                <h2 class="text-2xl font-semibold mb-4 text-center">
-                    Hasil Penilain
-                </h2>
-                <table class="border-collapse border border-gray-400 items-center w-110">
-                    <thead>
-                        <tr>
-                            <th class="border border-gray-300 bg-black text-white">Nama</th>
-                            <th class="border border-gray-300 bg-black text-white">Nilai Tugas</th>
-                            <th class="border border-gray-300 bg-black text-white">Nilai UTS</th>
-                            <th class="border border-gray-300 bg-black text-white">Nilai UAS</th>
-                            <th class="border border-gray-300  bg-black text-white">Nilai Akhir</th>
-                            <th class="border border-gray-300  bg-black text-white">Kategori</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border border-gray-300 text-center"><?php echo $nama ?></td>
-                            <td class="border border-gray-300 text-center"><?php echo $Tugas ?></td>
-                            <td class="border border-gray-300 text-center"><?php echo $UTS ?></td>
-                            <td class="border border-gray-300 text-center"><?php echo $UAS ?></td>
-                            <td class="border border-gray-300 text-center"><?php echo $nilai ?></td>
-                            <td class="border border-gray-300 text-center"><?php echo $status ?></td>
-                        </tr>
-                    </tbody>
-                </table>
 
-            </div>
-            <input type="submit" value="Hapus Semua Data" name="hitung" class="mt-5 mx-8 w-100 p-3 bg-red-500 text-white rounded-md hover:bg-purple-700 cursor-pointer mb-4">
+        <div class="bg-white p-8 rounded-lg shaadow-lg w-150 h-42">
+
+            <h2 class="text-2xl font-semibold text-center mb-5">
+                Hasil Penilaian
+            </h2>
+
+            <table class="table-auto border  w-full text-center rounded-lg">
+                <thead class="bg-gray-700 text-white gap-5 ">
+                    <tr>
+                    <th class=" text-center">Nama</th>
+                    <th class=" text-center">Nilai Tugas</th>
+                    <th class=" text-center">Nilai UTS</th>
+                    <th class=" text-center">Nilai UAS</th>
+                    <th class=" text-center">Nilai Akhir</th>
+                    <th class=" text-center">Kategori</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td class="border border-gray-700"><?php echo $nama?></td>
+                    <td class="border border-gray-700"><?php echo $tugas?></td>
+                    <td class="border border-gray-700"><?php echo $uts?></td>
+                    <td class="border border-gray-700"><?php echo $uas?></td>
+                    <td class="border border-gray-700"><?php echo $hasil?></td>
+                    <td class="border border-gray-700"><?php echo $predik?></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
+
     </div>
 
-</body>
-
+  </body>
 </html>
